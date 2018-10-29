@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:carbon
 
 # Install AWS CLI
 RUN apt-get update -q
