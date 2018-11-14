@@ -1,12 +1,17 @@
-FROM node:carbon
+# smaller size but doesn't support Meteor
+FROM node:carbon-alpine
 
 # Install AWS CLI
-RUN apt-get update -q
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -qy python3-pip python3-dev
-RUN pip3 install awscli
-
-# Install latest Meteor
-RUN curl https://install.meteor.com | sh
+RUN apk -v --update add \
+        python \
+        py-pip \
+        groff \
+        less \
+        mailcap \
+        && \
+    pip install --upgrade awscli==1.14.5 s3cmd==2.0.1 python-magic && \
+    apk -v --purge del py-pip && \
+    rm /var/cache/apk/*
 
 # json is used for parsing configurations
 RUN yarn global add json
