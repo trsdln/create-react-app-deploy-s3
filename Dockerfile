@@ -1,4 +1,4 @@
-FROM node:carbon
+FROM node:carbon-slim
 
 # Install AWS CLI
 RUN apt-get update -q
@@ -20,12 +20,6 @@ RUN curl -O https://prerelease.keybase.io/keybase_amd64.deb \
     && rm -f keybase_amd64.deb
 
 RUN run_keybase
-
-# Install latest Meteor
-RUN curl https://install.meteor.com | sh
-
-# json is used for parsing configurations
-RUN yarn global add json
 
 # Manages monorepo
 RUN yarn global add lerna
