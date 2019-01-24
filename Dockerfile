@@ -2,7 +2,9 @@ FROM node:carbon-slim
 
 # Install AWS CLI
 RUN apt-get update -q \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -qy --no-install-recommends python3-pip python3-dev \
+    && echo "Installing Python 3 & PIP" \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -qy --no-install-recommends python3-pip python3-dev python3-setuptools \
+    && echo "Installing AWS CLI" \
     && pip3 install awscli \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,8 +19,8 @@ RUN curl -O https://prerelease.keybase.io/keybase_amd64.deb \
     || $(exit 0) \
     && apt-get install --no-install-recommends -f -y \
     # Cleanup
-    && apt-get remove curl \
-    && apt autoremove \
+    && apt-get remove -qy curl \
+    && apt autoremove -qy \
     && rm -rf /var/lib/apt/lists/* \
     && rm -f keybase_amd64.deb \
     && run_keybase
@@ -28,3 +30,4 @@ RUN yarn global add lerna
 
 # Print yarn version for peace of mind
 RUN yarn --version
+
