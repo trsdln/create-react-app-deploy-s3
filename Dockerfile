@@ -31,3 +31,7 @@ RUN yarn global add lerna
 # Print yarn version for peace of mind
 RUN yarn --version
 
+# Install Git
+RUN apt-get update -q \
+    && apt-get install -qy --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/*
