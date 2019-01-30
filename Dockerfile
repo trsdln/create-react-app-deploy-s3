@@ -39,7 +39,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75
     && echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main" \ 
       | tee /etc/apt/sources.list.d/mongodb-org-4.0.list \
     && apt-get update -q \
-    && apt-get install --no-install-recommends -y mongodb-org \
+    && apt-get install --no-install-recommends -y mongodb-org-server=4.0.5 \
     && rm -rf /var/lib/apt/lists/*
 
 # Manages monorepo
