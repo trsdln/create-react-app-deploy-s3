@@ -42,6 +42,15 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75
     && apt-get install --no-install-recommends -y mongodb-org-server=4.0.5 \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Kubectl & Helm
+RUN curl -LOs https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubectl && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin/kubectl && \
+    curl -LOs https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz && \
+    tar -zxvf helm-v2.12.3-linux-amd64.tar.gz >> /dev/null && \
+    mv linux-amd64/helm /usr/local/bin/helm && \
+    rm helm-v2.12.3-linux-amd64.tar.gz && rm -rf linux-amd64
+
 # Manages monorepo
 RUN yarn global add lerna
 
